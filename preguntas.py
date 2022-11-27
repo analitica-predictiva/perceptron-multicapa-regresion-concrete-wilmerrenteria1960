@@ -52,7 +52,7 @@ def pregunta_02():
     ) = train_test_split(  
         X,  
         y,  
-        test_size=0.75,  
+        test_size=0.25,  
         random_state=12453,  
     )  
 

@@ -25,7 +25,7 @@ def pregunta_01():
     X = df.copy()  
 
     # Remueva la columna `strength` del DataFrame `X`.
-    X.drop(['strength'] , axis=1)  
+    X.drop(['strength'] , axis=1, inplace=True)  
 
     # Retorne `X` y `y`
     return X, y 
@@ -111,13 +111,13 @@ def pregunta_04():
     #   * Use parada temprana
 
     param_grid = {
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
+        "mlpregressor__hidden_layer_sizes": range(1,9),  
+        "mlpregressor__activation": ["relu"],  
+        "mlpregressor__learning_rate": ["adaptive"],  
+        "mlpregressor__momentum": [0.7, 0.8, 0.9],
+        "mlpregressor__learning_rate_init": [0.01, 0.05, 0.1],
+        "mlpregressor__max_iter": [5000],
+        "mlpregressor__early_stopping": [True],  
     }
 
     estimator = pregunta_03()
@@ -129,8 +129,8 @@ def pregunta_04():
     gridsearchcv = GridSearchCV(
         estimator=estimator,
         param_grid=param_grid,
-        ___ = ____  
-        ___ = ____  
+        scoring="r2",
+        cv=5,
     )
 
     return gridsearchcv
@@ -142,7 +142,7 @@ def pregunta_05():
     """
 
     # Importe mean_squared_error
-    from ____ import ____
+    from sklearn.metrics import mean_squared_error
 
     # Cargue las variables.
     x_train, x_test, y_train, y_test = pregunta_02()
@@ -154,18 +154,15 @@ def pregunta_05():
     estimator.fit(x_train, y_train)  #
 
     # Pronostique para las muestras de entrenamiento y validacion
-    y_trian_pred = ____.____(____)  
-    y_test_pred = ____.____(____)  
+    y_trian_pred = estimator.predict(x_train)
+    y_test_pred = estimator.predict(x_test) 
 
     # Calcule el error cuadrático medio de las muestras
-    mse_train = ____(  
-        ___,  
-        ___,  
+    mse_train = mean_squared_error(
+        y_train,
+        y_trian_pred,
     )
-    mse_test = ____(  
-        ___,  
-        ___,  
-    )
+    mse_test = mean_squared_error(y_test, y_test_pred)
 
     # Retorne el mse de entrenamiento y prueba
     return mse_train, mse_test

@@ -18,7 +18,7 @@ def pregunta_01():
     # Lea el archivo `concrete.csv` y asignelo al DataFrame `df`
     df = pd.read_csv('concrete.csv')  
 
-    # Asigne la columna `strength` a la variable `y`.
+    # Asigne la columna `strength` a la variable `y`..
     y = df['strength']  
 
     # Asigne una copia del dataframe `df` a la variable `X`.

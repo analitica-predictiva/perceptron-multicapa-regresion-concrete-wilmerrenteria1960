@@ -16,19 +16,19 @@ def pregunta_01():
     Carga y separación de los datos en `X` `y`
     """
     # Lea el archivo `concrete.csv` y asignelo al DataFrame `df`
-    df = ____  
+    df = pd.read_csv('concrete.csv')  
 
     # Asigne la columna `strength` a la variable `y`.
-    ____ = ____  
+    y = df['strength']  
 
     # Asigne una copia del dataframe `df` a la variable `X`.
-    ____ = ____.____(____)  
+    X = df.copy()  
 
     # Remueva la columna `strength` del DataFrame `X`.
-    ____.____(____)  
+    X.drop(['strength'] , axis=1)  
 
     # Retorne `X` y `y`
-    return x, y
+    return X, y 
 
 
 def pregunta_02():
@@ -37,10 +37,10 @@ def pregunta_02():
     """
 
     # Importe train_test_split
-    from ____ import ____
+    from sklearn.model_selection import train_test_split
 
     # Cargue los datos de ejemplo y asigne los resultados a `X` y `y`.
-    x, y = pregunta_01()
+    X, y = pregunta_01()
 
     # Divida los datos de entrenamiento y prueba. La semilla del generador de números
     # aleatorios es 12453. Use el 75% de los patrones para entrenamiento.
@@ -49,11 +49,11 @@ def pregunta_02():
         x_test,  
         y_train,  
         y_test,  
-    ) = ____(  
-        ____,  
-        ____,  
-        test_size=____,  
-        random_state=____,  
+    ) = train_test_split(  
+        X,  
+        y,  
+        test_size=0.75,  
+        random_state=12453,  
     )  
 
     # Retorne `X_train`, `X_test`, `y_train` y `y_test`
@@ -68,7 +68,10 @@ def pregunta_03():
     # Importe MLPRegressor
     # Importe MinMaxScaler
     # Importe Pipeline
-    from ____ import ____
+    from sklearn.neural_network import MLPRegressor
+    from sklearn.preprocessing import MinMaxScaler
+    from sklearn.pipeline import Pipeline
+
 
     # Cree un pipeline que contenga un estimador MinMaxScaler y un estimador
     # MLPRegressor
@@ -76,11 +79,11 @@ def pregunta_03():
         steps=[
             (
                 "minmaxscaler",
-                ____(___),  
+                MinMaxScaler(),  
             ),
             (
                 "mlpregressor",
-                ____(____),  
+                MLPRegressor(),  
             ),
         ],
     )
